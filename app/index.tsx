@@ -1,19 +1,19 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { 
-  View, 
-  Text, 
-  FlatList, 
-  TouchableOpacity, 
-  Animated, 
-  ViewToken,
-  NativeSyntheticEvent,
-  NativeScrollEvent
-} from 'react-native';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import OnboardingData, { OnboardingItem as OnboardingItemType } from '../data/OnboardingData';
+import React, { useCallback, useRef, useState } from 'react';
+import {
+  Animated,
+  FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewToken
+} from 'react-native';
 import OnboardingItem from '../components/OnboardingItem';
 import Paginator from '../components/Paginator';
+import OnboardingData, { OnboardingItem as OnboardingItemType } from '../data/OnboardingData';
 
 export default function OnboardingScreen() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -52,7 +52,7 @@ export default function OnboardingScreen() {
       </View>
 
       {/* Onboarding Slides */}
-      <View className="flex-3">
+      <View className="flex-1">
         <FlatList
           data={OnboardingData}
           renderItem={({ item, index }) => (
