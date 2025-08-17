@@ -42,29 +42,13 @@ export default function AuthScreen() {
       <StatusBar style="dark" />
       
       <View className="flex-1 px-6 pt-16">
-        {/* App Logo and Branding */}
+        {/* Logo and Welcome Section */}
         <View className="items-center mb-8">
           <View className="w-20 h-20 bg-blue-600 rounded-2xl justify-center items-center mb-4">
             <Car size={40} color="white" />
           </View>
-          
           <Text className="text-2xl font-bold text-gray-900 mb-2">
-            RoadAssist
-          </Text>
-          
-          <Text className="text-gray-500 text-base">
-            Help is on the way
-          </Text>
-        </View>
-
-        {/* --- CHANGE 1: Centered the entire welcome section --- */}
-        <View className="mb-8 items-center">
-          {/* --- CHANGE 2: Removed "back" from the welcome text --- */}
-          <Text className="text-2xl font-bold text-gray-900 mb-2">
-            Welcome
-          </Text>
-          <Text className="text-gray-600 text-base">
-            Enter your mobile number to continue
+            Welcome to RoadAssist
           </Text>
         </View>
 

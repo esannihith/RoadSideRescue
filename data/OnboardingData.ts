@@ -6,7 +6,7 @@ export type OnboardingFooterItem = {
 
 export type OnboardingItem = {
     id: string;
-    image: any; // You can use a more specific type if you know it
+    image: any; 
     title: string;
     description: string;
     footer: OnboardingFooterItem[];
@@ -19,9 +19,9 @@ const OnboardingData: OnboardingItem[] = [
             title: "Stranded? Help is on the way.",
             description: "Get fast, reliable roadside assistance from verified mechanics, wherever you are in India.",
             footer: [
-                { icon: "BadgeCheck", color: "#22c55e", label: "Verified" },      // green
-                { icon: "Clock", color: "#2563eb", label: "24/7 Support" },       // blue
-                { icon: "Map", color: "#f59e42", label: "Pan India" }             // orange
+                { icon: "BadgeCheck", color: "#22c55e", label: "Verified" },     
+                { icon: "Clock", color: "#2563eb", label: "24/7 Support" },       
+                { icon: "Map", color: "#f59e42", label: "Pan India" }            
             ]
         },
         {
