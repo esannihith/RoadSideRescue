@@ -4,23 +4,81 @@ import { Car, Shield } from 'lucide-react-native';
 import React, { useState } from 'react';
 import {
   Alert,
+  ActivityIndicator,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View
 } from 'react-native';
+import { useRouter } from 'expo-router';
+import { authService } from '@/services/authService';
 
 export default function AuthScreen() {
   const [mobileNumber, setMobileNumber] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const handleContinue = () => {
+  const formatPhoneNumber = (number: string) => {
+    // Remove any non-digit characters
+    const cleaned = number.replace(/\D/g, '');
+    
+    // Add +91 prefix if not present and number is 10 digits
+    if (cleaned.length === 10) {
+      return `+91${cleaned}`;
+    } else if (cleaned.startsWith('91') && cleaned.length === 12) {
+      return `+${cleaned}`;
+    } else if (cleaned.startsWith('91') && cleaned.length === 11) {
+      return `+${cleaned}`;
+    }
+    
+    return number;
+  };
+
+  const handleContinue = async () => {
     if (mobileNumber.length !== 10) {
       Alert.alert('Invalid Number', 'Please enter a valid 10-digit mobile number');
       return;
     }
-    // Placeholder function for mobile number authentication
-    Alert.alert('Success', `Continuing with mobile number: +91 ${mobileNumber}`);
+
+    const formattedNumber = formatPhoneNumber(mobileNumber);
+    
+    // Basic validation for Indian phone numbers
+    if (!/^\+91[6-9]\d{9}$/.test(formattedNumber)) {
+      Alert.alert('Error', 'Please enter a valid Indian phone number');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await authService.sendOtp({ phoneNumber: formattedNumber });
+      router.push({
+        pathname: './otp-verification',
+        params: { phoneNumber: formattedNumber }
+      });
+    } catch (error: any) {
+      console.error('OTP Error:', error);
+      console.error('Error response:', error.response);
+      console.error('Error message:', error.message);
+      console.error('Error code:', error.code);
+      
+      let errorMessage = 'Failed to send OTP';
+      
+      // Check for specific error types
+      if (error.code === 'NETWORK_ERROR' || error.message.includes('Network Error')) {
+        errorMessage = 'Network error: Cannot connect to server. Please check if the backend is running on localhost:3000';
+      } else if (error.code === 'ECONNREFUSED') {
+        errorMessage = 'Connection refused: Backend server is not running on localhost:3000';
+      } else if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      Alert.alert('Error', errorMessage);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleGoogleSignIn = () => {
@@ -75,11 +133,18 @@ export default function AuthScreen() {
         {/* Continue Button */}
         <TouchableOpacity 
           onPress={handleContinue}
-          className="bg-blue-600 py-4 rounded-xl mb-6"
+          disabled={loading}
+          className={`py-4 rounded-xl mb-6 ${
+            loading ? 'bg-gray-400' : 'bg-blue-600'
+          }`}
         >
-          <Text className="text-white text-lg font-semibold text-center">
-            Continue
-          </Text>
+          {loading ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <Text className="text-white text-lg font-semibold text-center">
+              Send OTP
+            </Text>
+          )}
         </TouchableOpacity>
 
         {/* Terms and Privacy */}

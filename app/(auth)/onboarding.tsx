@@ -29,7 +29,7 @@ export default function OnBoardingScreen() {
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 
   const handleSkip = () => {
-    router.push('/screens/auth');
+    router.push('./auth');
   };
 
   const handleScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
