@@ -30,9 +30,9 @@ const OnboardingData: OnboardingItem[] = [
             title: "Track Your Mechanic in Real-Time.",
             description: "Know exactly who is coming and when they will arrive with live GPS tracking.",
             footer: [
-                { icon: "MapPin", color: "blue", label: "Live GPS" },
-                { icon: "UserCheck", color: "green", label: "Verified ID" },
-                { icon: "Phone", color: "orange", label: "Direct Call" }
+                { icon: "MapPin", color: "#2563eb", label: "Live GPS" },
+                { icon: "UserCheck", color: "#22c55e", label: "Verified ID" },
+                { icon: "Phone", color: "#f59e42", label: "Direct Call" }
             ]
         },
         {
@@ -41,9 +41,9 @@ const OnboardingData: OnboardingItem[] = [
             title: "Simple & Secure Payments",
             description: "Pay directly in app with UPI, cards or wallets. No cash hassles.",
             footer: [
-                { icon: "ShieldHalf", color: "blue", label: "Secure" },
-                { icon: "CreditCard", color: "orange", label: "UPI & Cards" },
-                { icon: "Wallet", color: "purple", label: "Wallets" }
+                { icon: "ShieldHalf", color: "#2563eb", label: "Secure" },
+                { icon: "CreditCard", color: "#f59e42", label: "UPI & Cards" },
+                { icon: "Wallet", color: "#8b5cf6", label: "Wallets" }
             ]
         }
     ];
