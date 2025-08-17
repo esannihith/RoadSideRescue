@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  TextInput, 
-  TouchableOpacity, 
-  Image, 
-  ScrollView,
-  Alert 
-} from 'react-native';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { StatusBar } from 'expo-status-bar';
 import { Car, Shield } from 'lucide-react-native';
+import React, { useState } from 'react';
+import {
+  Alert,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from 'react-native';
 
 export default function AuthScreen() {
   const [mobileNumber, setMobileNumber] = useState('');
@@ -57,10 +57,11 @@ export default function AuthScreen() {
           </Text>
         </View>
 
-        {/* Welcome Section */}
-        <View className="mb-8">
+        {/* --- CHANGE 1: Centered the entire welcome section --- */}
+        <View className="mb-8 items-center">
+          {/* --- CHANGE 2: Removed "back" from the welcome text --- */}
           <Text className="text-2xl font-bold text-gray-900 mb-2">
-            Welcome back
+            Welcome
           </Text>
           <Text className="text-gray-600 text-base">
             Enter your mobile number to continue
@@ -112,20 +113,21 @@ export default function AuthScreen() {
         </View>
 
         {/* Social Sign In Buttons */}
-        <View className="flex-row space-x-4 mb-8">
+        {/* --- CHANGE 3: Added more space between buttons (space-x-6) --- */}
+        <View className="flex-row space-x-6 mb-8">
           <TouchableOpacity 
             onPress={handleGoogleSignIn}
-            className="flex-1 flex-row items-center justify-center border border-gray-300 py-3 rounded-xl"
+            className="flex-1 flex-row items-center justify-center border border-gray-300 py-4 rounded-xl mr-3"
           >
-            <Text className="text-red-500 text-lg font-bold mr-2">G</Text>
+            <FontAwesome name="google" size={20} color="#DB4437" style={{ marginRight: 8 }} />
             <Text className="text-gray-700 font-medium">Google</Text>
           </TouchableOpacity>
 
           <TouchableOpacity 
             onPress={handleAppleSignIn}
-            className="flex-1 flex-row items-center justify-center border border-gray-300 py-3 rounded-xl"
+            className="flex-1 flex-row items-center justify-center border border-gray-300 py-4 rounded-xl"
           >
-            <Text className="text-gray-900 text-lg font-bold mr-2">🍎</Text>
+            <FontAwesome name="apple" size={20} color="#111827" style={{ marginRight: 8 }} />
             <Text className="text-gray-700 font-medium">Apple</Text>
           </TouchableOpacity>
         </View>
