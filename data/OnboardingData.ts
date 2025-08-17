@@ -1,0 +1,51 @@
+export type OnboardingFooterItem = {
+    icon: string;
+    color: string;
+    label: string;
+};
+
+export type OnboardingItem = {
+    id: string;
+    image: any; // You can use a more specific type if you know it
+    title: string;
+    description: string;
+    footer: OnboardingFooterItem[];
+};
+
+const OnboardingData: OnboardingItem[] = [
+        {
+            id: '1',
+            image: require('../assets/images/onboarding-screen-1.png'),
+            title: "Stranded? Help is on the way.",
+            description: "Get fast, reliable roadside assistance from verified mechanics, wherever you are in India.",
+            footer: [
+                { icon: "BadgeCheck", color: "#22c55e", label: "Verified" },      // green
+                { icon: "Clock", color: "#2563eb", label: "24/7 Support" },       // blue
+                { icon: "Map", color: "#f59e42", label: "Pan India" }             // orange
+            ]
+        },
+        {
+            id: '2',
+            image: require('../assets/images/onboarding-screen-2.png'),
+            title: "Track Your Mechanic in Real-Time.",
+            description: "Know exactly who is coming and when they will arrive with live GPS tracking.",
+            footer: [
+                { icon: "MapPin", color: "blue", label: "Live GPS" },
+                { icon: "UserCheck", color: "green", label: "Verified ID" },
+                { icon: "Phone", color: "orange", label: "Direct Call" }
+            ]
+        },
+        {
+            id: '3',
+            image: require('../assets/images/onboarding-screen-3.png'),
+            title: "Simple & Secure Payments",
+            description: "Pay directly in app with UPI, cards or wallets. No cash hassles.",
+            footer: [
+                { icon: "ShieldHalf", color: "blue", label: "Secure" },
+                { icon: "CreditCard", color: "orange", label: "UPI & Cards" },
+                { icon: "Wallet", color: "purple", label: "Wallets" }
+            ]
+        }
+    ];
+
+export default OnboardingData;
