@@ -1,6 +1,10 @@
 import React from 'react';
-import MainOnboardingScreen from '../screens/MainOnboardingScreen';
+import { View } from 'react-native';
 
 export default function Index() {
-  return <MainOnboardingScreen />;
+  return (
+    <View>
+      Welcome to roadside rescue app.
+    </View>
+  );
 }
