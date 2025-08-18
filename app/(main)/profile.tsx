@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import { User, Phone, Mail, Users, Calendar, Award, TriangleAlert as AlertTriangle, ArrowRight, Circle as HelpCircle } from 'lucide-react-native';
+import { User, Phone, Mail, Users, Calendar, Award, TriangleAlert as AlertTriangle, ArrowRight, CircleQuestionMark as HelpCircle } from 'lucide-react-native';
 import { ScreenLayout, Header } from '@/components/ui';
 import { useUserStore } from '@/stores/userStore';
 
@@ -69,9 +69,10 @@ export default function ProfileScreen() {
           showBackButton 
           rightComponent={
             <TouchableOpacity onPress={() => Alert.alert('Help', 'Profile help will be implemented here')}>
-              <View className="bg-gray-100 rounded-full p-2">
+                <View className="flex-row items-center bg-gray-100 rounded-full px-3 py-2">
                 <HelpCircle size={20} color="#6b7280" />
-              </View>
+                <Text className="ml-2 text-gray-900">Help</Text>
+                </View>
             </TouchableOpacity>
           }
         />

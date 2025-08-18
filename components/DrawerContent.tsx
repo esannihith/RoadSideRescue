@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { useRouter } from 'expo-router';
-import { User, History, CreditCard, Gift, Circle as HelpCircle, Settings, ArrowRight, LogOut } from 'lucide-react-native';
+import { User, History, CreditCard, Gift, CircleQuestionMark as HelpCircle, Settings, ArrowRight, LogOut, Car } from 'lucide-react-native';
 import { useUserStore } from '@/stores/userStore';
 
 interface DrawerContentProps {
@@ -18,14 +18,16 @@ export const DrawerContent: React.FC<DrawerContentProps> = ({ navigation }) => {
     router.replace('/(auth)/onboarding');
   };
 
+  const handleProfilePress = () => {
+    navigation.closeDrawer();
+    router.push('./profile');
+  };
+
   const menuItems = [
     {
-      icon: User,
-      label: 'Profile & Vehicles',
-      onPress: () => {
-        navigation.closeDrawer();
-        router.push('./profile');
-      }
+      icon: Car,
+      label: 'Vehicles',
+      onPress: () => Alert.alert('Vehicles', 'Vehicles functionality will be implemented here')
     },
     {
       icon: History,
@@ -71,7 +73,7 @@ export const DrawerContent: React.FC<DrawerContentProps> = ({ navigation }) => {
                 {user?.phoneNumber || 'Phone not set'}
               </Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleProfilePress}>
               <ArrowRight size={20} color="#6b7280" />
             </TouchableOpacity>
           </View>

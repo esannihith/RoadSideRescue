@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Menu, Wrench, Battery, Truck, Fuel, Settings, MoveHorizontal as MoreHorizontal, CircleCheck as CheckCircle, Car, Plus } from 'lucide-react-native';
+import { Menu, Wrench, Battery, Truck, Fuel, Settings, Ellipsis as Ellipsis, CircleCheck as CheckCircle, Car, Plus } from 'lucide-react-native';
 import { ScreenLayout, ServiceButton, InfoCard, Button } from '@/components/ui';
 import { useUserStore } from '@/stores/userStore';
 import { DrawerActions } from '@react-navigation/native';
@@ -93,7 +93,7 @@ export default function HomeScreen() {
           />
           
           <ServiceButton
-            icon={<MoreHorizontal size={32} color="#6b7280" />}
+            icon={<Ellipsis size={32} color="#6b7280" />}
             label="More Services..."
             onPress={() => handleServicePress('More Services')}
             backgroundColor="bg-gray-50"
