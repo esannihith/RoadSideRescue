@@ -2,16 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { useRouter } from 'expo-router';
-import { 
-  User, 
-  History, 
-  CreditCard, 
-  Gift, 
-  HelpCircle, 
-  Settings, 
-  ArrowRight,
-  LogOut 
-} from 'lucide-react-native';
+import { User, History, CreditCard, Gift, Circle as HelpCircle, Settings, ArrowRight, LogOut } from 'lucide-react-native';
 import { useUserStore } from '@/stores/userStore';
 
 interface DrawerContentProps {
