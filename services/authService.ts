@@ -1,24 +1,5 @@
 import { api } from './api';
-
-export interface SendOtpRequest {
-  phoneNumber: string;
-}
-
-export interface VerifyOtpRequest {
-  phoneNumber: string;
-  otp: string;
-}
-
-export interface AuthResponse {
-  message: string;
-  token: string;
-  isNewUser: boolean;
-  user: {
-    id: string;
-    phoneNumber: string;
-    name?: string;
-  };
-}
+import { SendOtpRequest, VerifyOtpRequest, AuthResponse } from '@/types';
 
 export const authService = {
   sendOtp: async (data: SendOtpRequest) => {

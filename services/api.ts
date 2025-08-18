@@ -1,15 +1,13 @@
 import axios from 'axios';
 import { useUserStore } from '@/stores/userStore';
-
-// Update this URL based on your backend server
-const API_BASE_URL = 'http://192.168.1.3:3000/api';
+import { API_CONFIG } from '@/constants';
 
 export const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: API_CONFIG.BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000, // 10 second timeout
+  timeout: API_CONFIG.TIMEOUT,
 });
 
 // Request interceptor to add auth token

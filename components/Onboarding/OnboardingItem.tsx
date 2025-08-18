@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import * as Icons from 'lucide-react-native';
 import React from 'react';
 import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
-import { OnboardingItem as OnboardingItemType } from '../data/OnboardingData';
+import { OnboardingItem as OnboardingItemType } from '@/types';
 
 const { width } = Dimensions.get('window');
 
@@ -16,7 +16,7 @@ const OnboardingItem: React.FC<OnboardingItemProps> = ({ item, index, isLastSlid
   const router = useRouter();
 
   const handleGetStarted = () => {
-    router.push('/auth');
+    router.push('./auth');
   };
 
   const getIconComponent = (iconName: string) => {
@@ -48,13 +48,13 @@ const OnboardingItem: React.FC<OnboardingItemProps> = ({ item, index, isLastSlid
         </Text>
 
         {/* Footer Icons */}
-        <View className="flex-row justify-center space-x-8 mb-8">
+        <View className="flex-row justify-center items-center mb-8 flex-wrap">
           {item.footer.map((footerItem, idx) => {
             const IconComponent = getIconComponent(footerItem.icon);
             return (
-              <View key={idx} className="flex-row items-center mr-6">
-                <View className="w-12 h-12 rounded-full bg-gray-100 justify-center items-center mr-1">
-                  <IconComponent size={24} color={footerItem.color} />
+              <View key={idx} className="flex-row items-center mx-2 mb-2">
+                <View className="w-10 h-10 rounded-full bg-gray-100 justify-center items-center mr-2">
+                  <IconComponent size={20} color={footerItem.color} />
                 </View>
                 <Text className="text-sm text-gray-600 font-medium">
                   {footerItem.label}

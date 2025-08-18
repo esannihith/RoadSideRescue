@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { Car } from 'lucide-react-native';
+import { Button, InputField, ScreenLayout, AppLogo } from '@/components/ui';
 import { authService } from '@/services/authService';
 import { useUserStore } from '@/stores/userStore';
 
@@ -61,15 +60,11 @@ export default function OtpVerificationScreen() {
   };
 
   return (
-    <View className="flex-1 bg-white">
-      <StatusBar style="dark" />
-      
-      <View className="flex-1 px-6 pt-16">
+    <ScreenLayout>
+      <View className="flex-1">
         {/* Logo Section */}
         <View className="items-center mb-12">
-          <View className="w-20 h-20 bg-blue-600 rounded-2xl justify-center items-center mb-4">
-            <Car size={40} color="white" />
-          </View>
+          <AppLogo className="mb-4" />
           <Text className="text-2xl font-bold text-gray-900 mb-2">
             Verify OTP
           </Text>
@@ -80,30 +75,24 @@ export default function OtpVerificationScreen() {
 
         {/* OTP Input Section */}
         <View className="mb-8">
-          <TextInput
+          <InputField
             value={otp}
             onChangeText={setOtp}
             placeholder="123456"
             keyboardType="number-pad"
             maxLength={6}
-            className="border border-gray-300 rounded-lg p-4 text-center text-2xl font-bold tracking-widest"
+            className="text-center text-2xl font-bold tracking-widest"
           />
         </View>
 
         {/* Verify Button */}
-        <TouchableOpacity
+        <Button
+          title="Verify OTP"
           onPress={handleVerifyOtp}
-          disabled={loading}
-          className={`py-4 rounded-lg items-center mb-4 ${
-            loading ? 'bg-gray-400' : 'bg-blue-600'
-          }`}
-        >
-          {loading ? (
-            <ActivityIndicator color="white" />
-          ) : (
-            <Text className="text-white text-lg font-semibold">Verify OTP</Text>
-          )}
-        </TouchableOpacity>
+          loading={loading}
+          fullWidth
+          className="mb-4"
+        />
 
         {/* Resend OTP */}
         <TouchableOpacity onPress={handleResendOtp} className="items-center">
@@ -122,6 +111,6 @@ export default function OtpVerificationScreen() {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScreenLayout>
   );
 }

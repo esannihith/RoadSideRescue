@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { ArrowLeft, User, Mail, Phone } from 'lucide-react-native';
+import { User, Mail, Phone } from 'lucide-react-native';
+import { ScreenLayout, Header, InputField, Button } from '@/components/ui';
 import { userService } from '@/services/userService';
 import { useUserStore } from '@/stores/userStore';
+import { validateName, validateEmail } from '@/utils';
 
 export default function ProfileScreen() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
   const router = useRouter();
   const { user, updateUser } = useUserStore();
 
@@ -21,9 +23,23 @@ export default function ProfileScreen() {
     }
   }, [user]);
 
+  const validateForm = () => {
+    const newErrors: { name?: string; email?: string } = {};
+
+    if (!validateName(name)) {
+      newErrors.name = 'Name must be at least 2 characters long';
+    }
+
+    if (email && !validateEmail(email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleUpdateProfile = async () => {
-    if (!name.trim()) {
-      Alert.alert('Error', 'Please enter your name');
+    if (!validateForm()) {
       return;
     }
 
@@ -36,6 +52,7 @@ export default function ProfileScreen() {
 
       updateUser(response.user);
       setIsEditing(false);
+      setErrors({});
       Alert.alert('Success', 'Profile updated successfully');
     } catch (error: any) {
       Alert.alert('Error', error.response?.data?.message || 'Failed to update profile');
@@ -49,28 +66,25 @@ export default function ProfileScreen() {
       setName(user.name || '');
       setEmail(user.email || '');
     }
+    setErrors({});
     setIsEditing(false);
   };
 
   return (
-    <ScrollView className="flex-1 bg-white">
-      <StatusBar style="dark" />
-      
-      <View className="flex-1 px-6 pt-16">
+    <ScreenLayout scrollable>
+      <View className="flex-1">
         {/* Header */}
-        <View className="flex-row items-center mb-8">
-          <TouchableOpacity onPress={() => router.back()} className="mr-4">
-            <ArrowLeft size={24} color="#374151" />
-          </TouchableOpacity>
-          <Text className="text-2xl font-bold text-gray-900 flex-1">
-            Profile
-          </Text>
-          {!isEditing && (
-            <TouchableOpacity onPress={() => setIsEditing(true)}>
-              <Text className="text-blue-600 text-base font-semibold">Edit</Text>
-            </TouchableOpacity>
-          )}
-        </View>
+        <Header 
+          title="Profile" 
+          showBackButton 
+          rightComponent={
+            !isEditing ? (
+              <TouchableOpacity onPress={() => setIsEditing(true)}>
+                <Text className="text-blue-600 text-base font-semibold">Edit</Text>
+              </TouchableOpacity>
+            ) : null
+          }
+        />
 
         {/* Profile Info */}
         <View className="space-y-6">
@@ -82,12 +96,13 @@ export default function ProfileScreen() {
                 Full Name
               </Text>
             </View>
+            
             {isEditing ? (
-              <TextInput
+              <InputField
                 value={name}
                 onChangeText={setName}
                 placeholder="Enter your full name"
-                className="border border-gray-300 rounded-lg p-4 text-base"
+                error={errors.name}
               />
             ) : (
               <View className="bg-gray-50 rounded-lg p-4">
@@ -106,14 +121,15 @@ export default function ProfileScreen() {
                 Email Address
               </Text>
             </View>
+            
             {isEditing ? (
-              <TextInput
+              <InputField
                 value={email}
                 onChangeText={setEmail}
                 placeholder="Enter your email address"
                 keyboardType="email-address"
                 autoCapitalize="none"
-                className="border border-gray-300 rounded-lg p-4 text-base"
+                error={errors.email}
               />
             ) : (
               <View className="bg-gray-50 rounded-lg p-4">
@@ -143,29 +159,22 @@ export default function ProfileScreen() {
         {/* Action Buttons */}
         {isEditing && (
           <View className="flex-row space-x-3 mt-8">
-            <TouchableOpacity
+            <Button
+              title="Cancel"
+              variant="secondary"
               onPress={handleCancel}
-              className="flex-1 py-4 rounded-lg items-center bg-gray-200"
-            >
-              <Text className="text-gray-700 text-base font-semibold">Cancel</Text>
-            </TouchableOpacity>
+              className="flex-1"
+            />
 
-            <TouchableOpacity
+            <Button
+              title="Save Changes"
               onPress={handleUpdateProfile}
-              disabled={loading}
-              className={`flex-1 py-4 rounded-lg items-center ${
-                loading ? 'bg-gray-400' : 'bg-blue-600'
-              }`}
-            >
-              {loading ? (
-                <ActivityIndicator color="white" />
-              ) : (
-                <Text className="text-white text-base font-semibold">Save Changes</Text>
-              )}
-            </TouchableOpacity>
+              loading={loading}
+              className="flex-1"
+            />
           </View>
         )}
       </View>
-    </ScrollView>
+    </ScreenLayout>
   );
 }

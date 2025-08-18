@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { Car, User, LogOut } from 'lucide-react-native';
+import { User, LogOut } from 'lucide-react-native';
+import { ScreenLayout, AppLogo, Button } from '@/components/ui';
 import { useUserStore } from '@/stores/userStore';
 
 export default function HomeScreen() {
@@ -15,15 +15,11 @@ export default function HomeScreen() {
   };
 
   return (
-    <ScrollView className="flex-1 bg-white">
-      <StatusBar style="dark" />
-      
-      <View className="flex-1 px-6 pt-16">
+    <ScreenLayout scrollable>
+      <View className="flex-1">
         {/* Header Section */}
         <View className="items-center mb-12">
-          <View className="w-24 h-24 bg-blue-600 rounded-3xl justify-center items-center mb-6">
-            <Car size={48} color="white" />
-          </View>
+          <AppLogo size="large" className="mb-6" />
           
           <Text className="text-3xl font-bold text-gray-900 mb-4 text-center">
             Welcome to Road Side Rescue
@@ -65,7 +61,7 @@ export default function HomeScreen() {
             <TouchableOpacity
               className="flex-row items-center bg-gray-50 border border-gray-200 rounded-lg p-4"
             >
-              <Car size={24} color="#6b7280" />
+              <AppLogo size="small" />
               <View className="ml-3 flex-1">
                 <Text className="text-base font-semibold text-gray-900">
                   Request Assistance
@@ -96,16 +92,14 @@ export default function HomeScreen() {
         )}
 
         {/* Logout Button */}
-        <TouchableOpacity
+        <Button
+          title="Logout"
+          variant="danger"
           onPress={handleLogout}
-          className="flex-row items-center justify-center bg-red-50 border border-red-200 rounded-lg p-4"
-        >
-          <LogOut size={20} color="#dc2626" />
-          <Text className="text-red-600 text-base font-semibold ml-2">
-            Logout
-          </Text>
-        </TouchableOpacity>
+          fullWidth
+          icon={<LogOut size={20} color="#ffffff" />}
+        />
       </View>
-    </ScrollView>
+    </ScreenLayout>
   );
 }

@@ -1,16 +1,4 @@
-export type OnboardingFooterItem = {
-    icon: string;
-    color: string;
-    label: string;
-};
-
-export type OnboardingItem = {
-    id: string;
-    image: any; 
-    title: string;
-    description: string;
-    footer: OnboardingFooterItem[];
-};
+import { OnboardingItem, OnboardingFooterItem } from '@/types';
 
 const OnboardingData: OnboardingItem[] = [
         {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Animated, Dimensions } from 'react-native';
-import { OnboardingItem } from '../data/OnboardingData';
+import { OnboardingItem } from '@/types';
 
 const { width } = Dimensions.get('window');
 
