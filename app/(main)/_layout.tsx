@@ -1,10 +1,20 @@
-import { Stack } from 'expo-router';
+import { Drawer } from 'expo-router/drawer';
+import { DrawerContent } from '@/components/DrawerContent';
 
 export default function MainLayout() {
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="index" />
-      <Stack.Screen name="profile" />
-    </Stack>
+    <Drawer
+      drawerContent={(props) => <DrawerContent {...props} />}
+      screenOptions={{
+        headerShown: false,
+        drawerType: 'front',
+        drawerStyle: {
+          width: 280,
+        },
+      }}
+    >
+      <Drawer.Screen name="index" />
+      <Drawer.Screen name="profile" />
+    </Drawer>
   );
 }
